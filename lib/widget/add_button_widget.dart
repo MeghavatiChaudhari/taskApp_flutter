@@ -36,8 +36,9 @@ class AddButtonWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 decoration: BoxDecoration(border: Border.all(width: 2.0)),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: controller.textController,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: "Enter the task",
                   ),
@@ -56,16 +57,16 @@ class AddButtonWidget extends StatelessWidget {
                     onTap: () {
                       String id = randomAlphaNumeric(10);
                       Map<String, dynamic> userTodo = {
-                        // "work":  ,
+                        "task": controller.textController.text,
                         "Id": id
                       };
                       String selected = controller.selectedCategory.value;
                       if (selected == 'Personal') {
                         DatabaseService().addPersonalTask(userTodo, id);
                       } else if (selected == 'Office') {
-                        DatabaseService().addPersonalTask(userTodo, id);
-                      } else if (selected == 'Office') {
-                        DatabaseService().addPersonalTask(userTodo, id);
+                        DatabaseService().addOfficeTask(userTodo, id);
+                      } else if (selected == 'College') {
+                        DatabaseService().addCollegeTask(userTodo, id);
                       }
                       Get.back();
                     },
