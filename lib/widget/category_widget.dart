@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskapp/controller/switch_button_controller.dart';
+import 'package:taskapp/screen/todo_screen.dart';
 
 class PersonalCategoryWidget extends StatelessWidget {
   const PersonalCategoryWidget({super.key});
@@ -11,8 +12,9 @@ class PersonalCategoryWidget extends StatelessWidget {
         Get.put(SwitchButtonController());
     return Obx(() {
       return GestureDetector(
-        onTap: () {
+        onTap: () async {
           My_Controller.selectCategory('Personal');
+          await My_Controller.getWork();
         },
         child: Material(
           elevation: My_Controller.selectedCategory.value == 'Personal' ? 5 : 0,
@@ -51,8 +53,9 @@ class OfficeCategoryWidget extends StatelessWidget {
         Get.put(SwitchButtonController());
     return Obx(() {
       return GestureDetector(
-          onTap: () {
+          onTap: () async {
             My_Controller.selectedCategory('Office');
+            await My_Controller.getWork();
           },
           child: Material(
               elevation:
@@ -88,8 +91,9 @@ class CollegeCategoryWidget extends StatelessWidget {
         Get.put(SwitchButtonController());
     return Obx(() {
       return GestureDetector(
-          onTap: () {
+          onTap: () async {
             My_Controller.selectedCategory('College');
+            await My_Controller.getWork();
           },
           child: Material(
               elevation:

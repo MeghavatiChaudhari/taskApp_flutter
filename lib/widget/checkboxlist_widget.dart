@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:taskapp/controller/switch_button_controller.dart';
 
 class CheckboxlistWidget extends StatelessWidget {
-  const CheckboxlistWidget({super.key});
+  final Map<String, dynamic> taskData;
+
+  const CheckboxlistWidget({Key? key, required this.taskData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +20,12 @@ class CheckboxlistWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        title: const Row(
+        title: Row(
           children: [
             SizedBox(width: 10),
             Text(
-              'Make a YouTube video',
-              style: TextStyle(
+              taskData['title'] ?? 'No Title',
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
               ),
