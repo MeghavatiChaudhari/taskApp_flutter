@@ -8,7 +8,7 @@ import 'package:taskapp/widget/checkboxlist_widget.dart';
 class SwitchButtonController extends GetxController {
   var selectedCategory = 'Personal'.obs;
   RxBool suggest = false.obs;
-  Stream? allTasks;
+  Stream<QuerySnapshot>? allTasks;
   TextEditingController textController = TextEditingController();
 
   @override
@@ -17,20 +17,37 @@ class SwitchButtonController extends GetxController {
     fetchAllTasks();
   }
 
-  void fetchAllTasks() async {
+  void fetchAllTasks() {
     String selected = selectedCategory.value;
-    allTasks = await DatabaseService().getTask(selected == 'Personal'
+    print("this is the selected categori" + selected);
+    allTasks = DatabaseService().getTask(selected == 'Personal'
         ? "Personal"
         : selected == 'College'
             ? "College"
             : "Office");
+    allTasks?.listen((QuerySnapshot snapshot) {
+      print("received data from firestore :");
+      snapshot.docs.forEach((doc) {
+        print(doc.data());
+      });
+    }).onError((error) {
+      print("error fetching data : $error");
+    });
   }
 
   Widget getWork() {
-    return StreamBuilder(
-        stream: allTasks,
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: allTasks, // Ensure the type is correct
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData && snapshot.data != null) {
+            print("Snapshot data:");
+            snapshot.data!.docs.forEach((doc) {
+              print(doc.data()); // Print each document's data
+            });
             return Expanded(
               child: ListView.builder(
                 itemCount: snapshot.data!.docs.length,
@@ -42,8 +59,8 @@ class SwitchButtonController extends GetxController {
               ),
             );
           } else {
-            return Center(
-              child: CircularProgressIndicator(),
+            return const Center(
+              child: Text("no task found"),
             );
           }
         });
@@ -51,6 +68,7 @@ class SwitchButtonController extends GetxController {
 
   void selectCategory(String category) {
     selectedCategory.value = category;
+    fetchAllTasks();
   }
 
   void checkboxState(bool checkstate) {

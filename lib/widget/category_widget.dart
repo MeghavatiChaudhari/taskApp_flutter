@@ -14,6 +14,7 @@ class PersonalCategoryWidget extends StatelessWidget {
       return GestureDetector(
         onTap: () async {
           My_Controller.selectCategory('Personal');
+          print('Selected category: ${My_Controller.selectedCategory.value}');
           await My_Controller.getWork();
         },
         child: Material(
@@ -55,6 +56,7 @@ class OfficeCategoryWidget extends StatelessWidget {
       return GestureDetector(
           onTap: () async {
             My_Controller.selectedCategory('Office');
+            print('Selected category: ${My_Controller.selectedCategory.value}');
             await My_Controller.getWork();
           },
           child: Material(
@@ -93,6 +95,7 @@ class CollegeCategoryWidget extends StatelessWidget {
       return GestureDetector(
           onTap: () async {
             My_Controller.selectedCategory('College');
+            print('Selected category: ${My_Controller.selectedCategory.value}');
             await My_Controller.getWork();
           },
           child: Material(

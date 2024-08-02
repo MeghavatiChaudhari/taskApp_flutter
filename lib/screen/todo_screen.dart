@@ -22,15 +22,20 @@ class TodoScreen extends StatelessWidget {
           const ThemeWidget(),
           SingleChildScrollView(
             padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const GreetWidget(),
-                const SizedBox(height: 20),
-                const CategoryRowWidget(),
-                const SizedBox(height: 20),
-                myController.getWork(),
-              ],
+            child: Container(
+              height: 500,
+              width: 700,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const GreetWidget(),
+                  const SizedBox(height: 10),
+                  const CategoryRowWidget(),
+                  const SizedBox(height: 10),
+                  myController.getWork(),
+                ],
+              ),
             ),
           ),
         ],

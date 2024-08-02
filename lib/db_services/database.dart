@@ -23,7 +23,7 @@ class DatabaseService {
         .set(userPersonalMap);
   }
 
-  Future<Stream<QuerySnapshot>> getTask(String task) async {
-    return await FirebaseFirestore.instance.collection(task).snapshots();
+  Stream<QuerySnapshot> getTask(String task) {
+    return FirebaseFirestore.instance.collection(task).snapshots();
   }
 }
