@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:taskapp/firebase_options.dart';
 import 'package:taskapp/screen/todo_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:taskapp/controller/switch_button_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final SwitchButtonController controller = Get.put(SwitchButtonController());
   runApp(const MyApp());
 }
 

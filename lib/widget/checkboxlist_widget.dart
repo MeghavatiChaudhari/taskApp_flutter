@@ -3,16 +3,17 @@ import 'package:get/get.dart';
 import 'package:taskapp/controller/switch_button_controller.dart';
 
 class CheckboxlistWidget extends StatelessWidget {
-  final Map<String, dynamic> taskData;
-
-  const CheckboxlistWidget({Key? key, required this.taskData})
-      : super(key: key);
+  final String taskId;
+  CheckboxlistWidget({Key? key, required this.taskId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final SwitchButtonController myController =
-        Get.put(SwitchButtonController());
+        Get.find<SwitchButtonController>();
+
+    RxBool isChecked = false.obs;
     return Obx(() {
+      final taskData = myController.taskData[taskId];
       return CheckboxListTile(
         activeColor: Colors.teal,
         checkColor: Colors.white,
@@ -22,9 +23,9 @@ class CheckboxlistWidget extends StatelessWidget {
         ),
         title: Row(
           children: [
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
-              taskData['title'] ?? 'No Title',
+              taskData?['task'] ?? 'No task',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -32,10 +33,10 @@ class CheckboxlistWidget extends StatelessWidget {
             ),
           ],
         ),
-        value: myController.suggest.value,
+        value: isChecked.value,
         onChanged: (newValue) {
           if (newValue != null) {
-            myController.suggest.value = newValue;
+            isChecked.value = newValue;
           }
         },
         controlAffinity: ListTileControlAffinity.leading,

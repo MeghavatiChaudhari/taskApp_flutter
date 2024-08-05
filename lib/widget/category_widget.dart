@@ -9,13 +9,13 @@ class PersonalCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SwitchButtonController My_Controller =
-        Get.put(SwitchButtonController());
+        Get.find<SwitchButtonController>();
     return Obx(() {
       return GestureDetector(
         onTap: () async {
           My_Controller.selectCategory('Personal');
           print('Selected category: ${My_Controller.selectedCategory.value}');
-          await My_Controller.getWork();
+          My_Controller.getWork();
         },
         child: Material(
           elevation: My_Controller.selectedCategory.value == 'Personal' ? 5 : 0,
@@ -55,9 +55,9 @@ class OfficeCategoryWidget extends StatelessWidget {
     return Obx(() {
       return GestureDetector(
           onTap: () async {
-            My_Controller.selectedCategory('Office');
+            My_Controller.selectCategory('Office');
             print('Selected category: ${My_Controller.selectedCategory.value}');
-            await My_Controller.getWork();
+            My_Controller.getWork();
           },
           child: Material(
               elevation:
@@ -94,7 +94,7 @@ class CollegeCategoryWidget extends StatelessWidget {
     return Obx(() {
       return GestureDetector(
           onTap: () async {
-            My_Controller.selectedCategory('College');
+            My_Controller.selectCategory('College');
             print('Selected category: ${My_Controller.selectedCategory.value}');
             await My_Controller.getWork();
           },

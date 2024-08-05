@@ -1,24 +1,38 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/state_manager.dart';
 import 'package:taskapp/db_services/database.dart';
 import 'package:taskapp/widget/checkboxlist_widget.dart';
 
 class SwitchButtonController extends GetxController {
-  var selectedCategory = 'Personal'.obs;
+  RxString selectedCategory = 'Personal'.obs;
   RxBool suggest = false.obs;
   Stream<QuerySnapshot>? allTasks;
+  final RxMap<String, dynamic> taskData = <String, dynamic>{}.obs;
   TextEditingController textController = TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
     fetchAllTasks();
+    // selectedCategory.listen((_) => fetchAllTasks());
+  }
+
+  void ManageTaskData(QuerySnapshot snapshot) {
+    taskData.clear();
+    for (var doc in snapshot.docs) {
+      taskData[doc.id] = doc.data() as Map<String, dynamic>;
+    }
   }
 
   void fetchAllTasks() {
     String selected = selectedCategory.value;
+    print("started running fetechAllTasks");
     print("this is the selected categori" + selected);
     allTasks = DatabaseService().getTask(selected == 'Personal'
         ? "Personal"
@@ -30,40 +44,32 @@ class SwitchButtonController extends GetxController {
       snapshot.docs.forEach((doc) {
         print(doc.data());
       });
+      ManageTaskData(snapshot);
     }).onError((error) {
       print("error fetching data : $error");
     });
   }
 
   Widget getWork() {
-    return StreamBuilder<QuerySnapshot>(
-        stream: allTasks, // Ensure the type is correct
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData && snapshot.data != null) {
-            print("Snapshot data:");
-            snapshot.data!.docs.forEach((doc) {
-              print(doc.data()); // Print each document's data
-            });
-            return Expanded(
-              child: ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot docSnap = snapshot.data!.docs[index];
-                  return CheckboxlistWidget(
-                      taskData: docSnap.data() as Map<String, dynamic>);
-                },
-              ),
-            );
-          } else {
-            return const Center(
-              child: Text("no task found"),
-            );
-          }
-        });
+    print("building streambuilder");
+    return Expanded(
+      child: Obx(() {
+        // Use taskData directly here to trigger UI updates
+        if (taskData.isEmpty) {
+          return const Center(
+            child: Text("no task found"),
+          );
+        }
+        return ListView.builder(
+          itemCount: taskData.length,
+          itemBuilder: (context, index) {
+            String key = taskData.keys.elementAt(index);
+            Map<String, dynamic> task = taskData[key];
+            return CheckboxlistWidget(taskId: key);
+          },
+        );
+      }),
+    );
   }
 
   void selectCategory(String category) {

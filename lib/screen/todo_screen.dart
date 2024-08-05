@@ -13,7 +13,7 @@ class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SwitchButtonController myController =
-        Get.put(SwitchButtonController());
+        Get.find<SwitchButtonController>();
 
     return Scaffold(
       floatingActionButton: const AddButtonWidget(),
@@ -21,7 +21,7 @@ class TodoScreen extends StatelessWidget {
         children: [
           const ThemeWidget(),
           SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 70, left: 0, right: 20),
             child: Container(
               height: 500,
               width: 700,
