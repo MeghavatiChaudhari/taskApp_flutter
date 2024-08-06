@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:taskapp/widget/add_button_widget.dart';
-import 'package:taskapp/widget/greet_widget.dart';
-import 'package:taskapp/widget/category_row_widget.dart';
+import 'package:taskapp/view/add_button_widget.dart';
+import 'package:taskapp/view/greet_widget.dart';
+import 'package:taskapp/view/category_row_widget.dart';
 import 'package:taskapp/controller/switch_button_controller.dart';
 import 'package:get/get.dart';
-import 'package:taskapp/widget/theme_widget.dart';
+import 'package:taskapp/view/theme_widget.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});

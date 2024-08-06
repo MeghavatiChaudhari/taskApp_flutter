@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
 import 'package:taskapp/db_services/database.dart';
-import 'package:taskapp/widget/category_row_widget.dart';
-import 'package:taskapp/widget/category_widget.dart';
-import 'package:taskapp/db_services/database.dart';
 import 'package:taskapp/controller/switch_button_controller.dart';
 
 class AddButtonWidget extends StatelessWidget {
@@ -72,7 +69,7 @@ class AddButtonWidget extends StatelessWidget {
                     },
                     child: const Center(
                       child: Text(
-                        "Add",
+                        "Add task",
                         style: TextStyle(color: Colors.black),
                       ),
                     ),

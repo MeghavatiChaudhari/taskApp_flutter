@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:taskapp/widget/category_widget.dart';
+import 'package:taskapp/view//category_widget.dart';
 
 class CategoryRowWidget extends StatelessWidget {
   const CategoryRowWidget({super.key});
