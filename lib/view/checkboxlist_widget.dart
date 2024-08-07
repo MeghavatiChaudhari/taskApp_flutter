@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskapp/controller/switch_button_controller.dart';
+import 'package:taskapp/db_services/database.dart';
 
 class CheckboxlistWidget extends StatelessWidget {
   final String taskId;
@@ -37,6 +38,11 @@ class CheckboxlistWidget extends StatelessWidget {
         onChanged: (newValue) {
           if (newValue != null) {
             myController.checkedtick(taskId, newValue);
+            if (newValue) {
+              print(newValue);
+              DatabaseService()
+                  .deleteTask(taskId, myController.selectedCategory.value);
+            }
           }
         },
         controlAffinity: ListTileControlAffinity.leading,

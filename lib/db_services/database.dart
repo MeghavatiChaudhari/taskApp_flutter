@@ -26,4 +26,12 @@ class DatabaseService {
   Stream<QuerySnapshot> getTask(String task) {
     return FirebaseFirestore.instance.collection(task).snapshots();
   }
+
+  Future deleteTask(String taskId, String taskCategory) async {
+    await Future.delayed(Duration(seconds: 2));
+    return await FirebaseFirestore.instance
+        .collection(taskCategory)
+        .doc(taskId)
+        .delete();
+  }
 }
