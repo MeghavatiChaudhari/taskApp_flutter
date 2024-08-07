@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskapp/firebase_options.dart';
-import 'package:taskapp/screen/todo_screen.dart';
+import 'package:taskapp/screen/task_management/switch_button_controller.dart';
+import 'package:taskapp/screen/task_management/todo_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:taskapp/controller/switch_button_controller.dart';
+import 'package:taskapp/screen/splash/welcome_iconscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const GetMaterialApp(
-        debugShowCheckedModeBanner: false, home: TodoScreen());
+        debugShowCheckedModeBanner: false, home: Splash());
   }
 }

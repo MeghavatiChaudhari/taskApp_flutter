@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
 import 'package:taskapp/db_services/database.dart';
-import 'package:taskapp/controller/switch_button_controller.dart';
+import 'package:taskapp/screen/task_management/switch_button_controller.dart';
 
 class AddButtonWidget extends StatelessWidget {
   const AddButtonWidget({super.key});

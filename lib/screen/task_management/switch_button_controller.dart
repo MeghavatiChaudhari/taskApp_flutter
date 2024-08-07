@@ -3,11 +3,9 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/state_manager.dart';
 import 'package:taskapp/db_services/database.dart';
-import 'package:taskapp/view/checkboxlist_widget.dart';
+import 'package:taskapp/screen/task_management/view/checkboxlist_widget.dart';
 
 class SwitchButtonController extends GetxController {
   RxString selectedCategory = 'Personal'.obs;

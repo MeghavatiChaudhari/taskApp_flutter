@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taskapp/controller/switch_button_controller.dart';
-import 'package:taskapp/screen/todo_screen.dart';
+import 'package:taskapp/screen/task_management/switch_button_controller.dart';
 
 class PersonalCategoryWidget extends StatelessWidget {
   const PersonalCategoryWidget({super.key});

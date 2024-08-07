@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taskapp/controller/switch_button_controller.dart';
+import 'package:taskapp/screen/task_management/switch_button_controller.dart';
 import 'package:taskapp/db_services/database.dart';
 
 class CheckboxlistWidget extends StatelessWidget {
